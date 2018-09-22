@@ -15,11 +15,14 @@
         <java.version>1.8</java.version>
         <spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
         <project.version>0.0.1-SNAPSHOT</project.version>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
+        <findbugs.version>3.0.1</findbugs.version>
     </properties>
 
 
     <modules>
-        <module>tomcatcluster</module>
+        <module>sample</module>
         <!--<module>cartui</module>-->
     </modules>
 
@@ -73,39 +76,88 @@
                     </flowInitContext>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
-    <repositories>
+    <profiles>
+        <profile>
+            <id>findbugs</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>findbugs-maven-plugin</artifactId>
+                        <version>${findbugs-maven-plugin.version}</version>
+                        <configuration>
+                            <excludeFilterFile>${basedir}/etc/findbugs-exclude-filter.xml</excludeFilterFile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-        <repository>
-            <id>local-repo</id>
-            <name>Local libraries repository</name>
-            <url>file://${basedir}/local-repo</url>
-        </repository>
+        <profile>
+            <id>jacoco</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>${jacoco.version}</version>
+                        <executions>
+                            <execution>
+                                <id>prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>report</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>post-unit-test</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- Sets the path to the file which contains the execution data. -->
 
-        <repository>
-            <id>com.springsource.repository.bundles.milestone</id>
-            <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Milestones</name>
-            <url>http://repository.springsource.com/maven/bundles/milestone</url>
-        </repository>
-
-        <repository>
-            <id>apache-snapshot</id>
-            <name>Apache Maven Snapshot Repository</name>
-            <url>https://repository.apache.org/content/groups/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>repository.plugin.springsource.release</id>
-            <name>SpringSource Maven Repository</name>
-            <url>http://repo.springsource.org/plugins-release</url>
-        </pluginRepository>
-    </pluginRepositories>
+                                    <dataFile>target/jacoco.exec</dataFile>
+                                    <!-- Sets the output directory for the code coverage report. -->
+                                    <outputDirectory>target/jacoco-ut</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

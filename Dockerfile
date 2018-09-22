@@ -2,9 +2,14 @@ FROM tomcat:8.0-alpine
 MAINTAINER Tomas Couso tomas.couso@enzymeadvisinggroup.com
 
 # Create base folder
-RUN mkdir -p /opt/openbravo
+RUN mkdir -p /opt/openbravo/
 # Copy scripts folder
-COPY server /opt/openbravo
+COPY server /opt/openbravo/
+RUN ls -la /opt/openbravo/bin/*.sh
+
+# Install openrc of alpine
+RUN apk update
+RUN apk add openrc
 
 # Install Redis
 RUN apk update
@@ -17,4 +22,11 @@ RUN apk add apache2
 # Start Apache
 RUN rc-update add apache2
 
-EXPOSE 8080
+# Start tomcat instance 1
+RUN chmod +x /opt/openbravo/bin/*.sh
+
+EXPOSE 8181
+EXPOSE 8182
+EXPOSE 8183
+
+CMD /opt/openbravo/bin/tomcat.sh run
