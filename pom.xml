@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.openbravo</groupId>
+    <artifactId>tomcat-project</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <spring-cloud.version>Edgware.RELEASE</spring-cloud.version>
+        <project.version>0.0.1-SNAPSHOT</project.version>
+    </properties>
+
+
+    <modules>
+        <module>tomcatcluster</module>
+        <!--<module>cartui</module>-->
+    </modules>
+
+    <!-- Plugins adicionales de maven -->
+    <build>
+        <plugins>
+            <!--
+               Maven git-flow
+
+            -->
+            <plugin>
+                <groupId>external.atlassian.jgitflow</groupId>
+                <artifactId>jgitflow-maven-plugin</artifactId>
+                <version>1.0-m5.1</version>
+                <configuration>
+                    <!-- Whether to allow SNAPSHOT dependencies. Default is to fail when finding any SNAPSHOT -->
+                    <allowSnapshots>true</allowSnapshots>
+                    <!-- Whether to allow untracked files when checking if the working tree is clean. -->
+                    <allowUntracked>true</allowUntracked>
+                    <!-- Enable this to push to origin using SSH keys -->
+                    <enableSshAgent>true</enableSshAgent>
+                    <!-- Keep your maven submodules at the same version as the parent POM -->
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <!--
+                      Pusing in-development features to origin allows all devs to see what each other
+                      are working on
+                    -->
+                    <pushFeatures>true</pushFeatures>
+                    <!--
+                      This allows the CI server (e.g. Jenkins) to automatically push new releases to
+                      origin; you can then either manually deploy them or, if you are doing Continuous
+                      Deployments, auto-deploy them to prod
+                    -->
+                    <pushReleases>true</pushReleases>
+                    <!--
+                      Hot Fixes should be pushed to origin as well so that any dev can pick them up
+                    -->
+                    <pushHotfixes>true</pushHotfixes>
+                    <!--
+                      Prevents deployments from dev workstations so that they can be done by a CI
+                      server
+                    -->
+                    <noDeploy>true</noDeploy>
+                    <flowInitContext>
+                        <masterBranchName>master</masterBranchName>
+                        <developBranchName>develop</developBranchName>
+                        <featureBranchPrefix>feature-</featureBranchPrefix>
+                        <releaseBranchPrefix>release-</releaseBranchPrefix>
+                        <hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+                        <versionTagPrefix>v</versionTagPrefix>
+                    </flowInitContext>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+
+        <repository>
+            <id>local-repo</id>
+            <name>Local libraries repository</name>
+            <url>file://${basedir}/local-repo</url>
+        </repository>
+
+        <repository>
+            <id>com.springsource.repository.bundles.milestone</id>
+            <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Milestones</name>
+            <url>http://repository.springsource.com/maven/bundles/milestone</url>
+        </repository>
+
+        <repository>
+            <id>apache-snapshot</id>
+            <name>Apache Maven Snapshot Repository</name>
+            <url>https://repository.apache.org/content/groups/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>repository.plugin.springsource.release</id>
+            <name>SpringSource Maven Repository</name>
+            <url>http://repo.springsource.org/plugins-release</url>
+        </pluginRepository>
+    </pluginRepositories>
+</project>
