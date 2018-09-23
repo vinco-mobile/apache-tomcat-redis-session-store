@@ -1,0 +1,26 @@
+db:
+  image: redis:3.0.3
+  hostname: redis
+  ports:
+    - "6379:6379"
+tomcat1:
+    build: tomcat-sample
+    links:
+      - "db:redis"
+tomcat2:
+    build: tomcat-sample
+    links:
+      - "db:redis"
+tomcat3:
+    build: tomcat-sample
+    links:
+      - "db:redis"
+httpd:
+    build: apache-web
+    ports:
+      - "80:80"
+      - "1936:1936"
+    links:
+        - tomcat1
+        - tomcat2
+        - tomcat3
