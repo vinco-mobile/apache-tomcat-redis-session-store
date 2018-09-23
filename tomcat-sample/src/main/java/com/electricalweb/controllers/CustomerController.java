@@ -1,5 +1,6 @@
 package com.electricalweb.controllers;
 
+import com.electricalweb.entities.User;
 import com.electricalweb.validators.EmailValidator;
 import com.electricalweb.validators.StringValidator;
 import javax.servlet.ServletException;
@@ -23,6 +24,9 @@ public class CustomerController extends HttpServlet {
         if (!violations.isEmpty()) {
             request.setAttribute("violations", violations);
         }
+
+        User user = customer.getUser();
+        request.getSession().setAttribute("user", user);
 
         String url = determineUrl(violations);
         forwardResponse(url, request, response);
@@ -51,6 +55,8 @@ public class CustomerController extends HttpServlet {
         private final String firstName;
         private final String lastName;
         private final String email;
+
+
 
         private RequestCustomer(String firstName, String lastName, String email) {
             this.firstName = firstName;
@@ -83,6 +89,11 @@ public class CustomerController extends HttpServlet {
                 violations.add("Email must be a well-formed address");
             }
             return violations;
+        }
+
+        public User getUser() {
+            User user = new User(this.firstName, this.lastName, this.email);
+            return user;
         }
     }
 }

@@ -1,12 +1,20 @@
 package com.electricalweb.entities;
 
-public class Customer {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private String firstName;
     private String lastName;
     private String email;
 
-    public Customer(String firstName, String lastName, String email) {
+    public User() {
+        this.firstName = "NA";
+        this.lastName = "NA";
+        this.email = "NA";
+    }
+
+    public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -35,4 +43,6 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 }

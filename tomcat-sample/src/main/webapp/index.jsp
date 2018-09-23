@@ -6,6 +6,7 @@
     <title>Customer Sign Up</title>
 </head>
 <body>
+
     <h1>Customer Sign Up</h1>
 
     <c:if test="${violations != null}">
