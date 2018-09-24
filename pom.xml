@@ -22,7 +22,8 @@
 
 
     <modules>
-        <module>tomcat-sample</module>
+        <module>redis-session-manager</module>
+        <module>sample</module>
         <!--<module>cartui</module>-->
     </modules>
 
