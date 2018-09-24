@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "LoginController", urlPatterns = "/logim")
+@WebServlet(name = "LoginController", urlPatterns = "/login")
 public class LoginController extends HttpServlet {
 
     @Override

@@ -20,13 +20,13 @@
     <p>Session Access Date : <%=new Date(request.getSession().getLastAccessedTime())%>></p>
 </FONT>
 <hr/>
-<h2>User:</h2>
+<h3>User:</h3>
 <p><strong>First Name: </strong> ${sessionScope.user.firstName}</p>
 <p><strong>Last Name: </strong> ${sessionScope.user.lastName}</p>
 <p><strong>Email: </strong>${sessionScope.user.email}</p>
 <br>
 <hr/>
-<h1>Customer Sign Up</h1>
+<h3>Customer Sign Up</h3>
 
 <form action="${pageContext.request.contextPath}/login" method="post">
     <label for="firstname">First Name : </label>
