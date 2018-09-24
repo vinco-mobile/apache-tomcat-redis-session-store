@@ -28,7 +28,7 @@
 <hr/>
 <h1>Customer Sign Up</h1>
 
-<form action="${pageContext.request.contextPath}/processcustomer" method="post">
+<form action="${pageContext.request.contextPath}/login" method="post">
     <label for="firstname">First Name : </label>
     <input type="text" name="firstname" id="firstname" value="${firstname}">
     <label for="lastname">Last Name:</label>
