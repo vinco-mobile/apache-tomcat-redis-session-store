@@ -3,8 +3,6 @@ MAINTAINER Tomas Couso tomas.couso@enzymeadvisinggroup.com
 
 # Copy configuration
 COPY httpd.conf /usr/local/apache2/conf/httpd.conf
-#COPY ./my-virtualhost.conf /usr/local/apache2/conf/my-virtualhost.conf
-# Copy static web
 COPY ./public-html/ /usr/local/apache2/htdocs/
 
 EXPOSE 80
