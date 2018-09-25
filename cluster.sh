@@ -4,6 +4,6 @@
 
 cd docker
 # Se ejecuta docker-compouse
-docker-compose run
+docker-compose up
 
 
